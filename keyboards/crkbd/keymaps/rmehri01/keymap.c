@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI, KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,    KC_W,    KC_V,    KC_Z, KC_RALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                      KC_LSFT,KC_LCTL,LT(1, KC_ENT),  LT(2, KC_TAB),KC_SPC,KC_RSFT
+                                        OSM(MOD_LSFT),KC_LCTL,MO(1),   MO(2),KC_SPC,OSM(MOD_RSFT)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -38,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_ESC, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_ESC,OSM(MOD_LALT),OSM(MOD_LGUI),XXXXXXX,KC_ENT,XXXXXXX,                XXXXXXX,KC_TAB,KC_UP,OSM(MOD_RGUI),OSM(MOD_RALT),XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LSFT, KC_LCTL,  KC_ENT,  LT(3, KC_TAB),KC_SPC,KC_RSFT
+                                      OSM(MOD_LSFT),KC_LCTL,_______,   MO(3),KC_SPC,OSM(MOD_RSFT)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_TILD, KC_PLUS, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                      KC_LSFT,KC_LCTL,LT(3, KC_ENT),     KC_TAB,  KC_SPC,  KC_RSFT
+                                        OSM(MOD_LSFT),KC_LCTL,MO(3),  _______,KC_SPC,OSM(MOD_RSFT)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                      XXXXXXX,KC__VOLDOWN,KC_BRMD,XXXXXXX,XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LSFT, KC_LCTL,  KC_ENT,     KC_TAB,  KC_SPC,  KC_RSFT
+                                      OSM(MOD_LSFT),KC_LCTL,_______,  _______,KC_SPC,OSM(MOD_RSFT)
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -74,11 +74,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LT(1, KC_ENT):
-        case LT(2, KC_TAB):
-        case LT(3, KC_ENT):
-        case LT(3, KC_TAB):
-            return 130;
+        case OSM(MOD_LALT):
+        case OSM(MOD_LGUI):
+        case OSM(MOD_LSFT):
+        case OSM(MOD_RSFT):
+        case OSM(MOD_RALT):
+        case OSM(MOD_RGUI):
+            return 175;
         default:
             return TAPPING_TERM;
     }
