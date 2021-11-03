@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL_PD2
 
 #undef DEBOUNCE
-#define DEBOUNCE 3
+#define DEBOUNCE 4
 
 #define USB_POLLING_INTERVAL_MS 1
 
