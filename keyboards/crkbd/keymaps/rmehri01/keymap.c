@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-KC_ESC,OSM(MOD_LCTL),OSM(MOD_LALT),OSM(MOD_LGUI),OSM(MOD_LSFT),KC_ENT,    KC_TAB,OSM(MOD_RSFT),OSM(MOD_RGUI),OSM(MOD_RALT),OSM(MOD_RALT),XXXXXXX,
+KC_ESC,OSM(MOD_LCTL),OSM(MOD_LALT),OSM(MOD_LGUI),KC_ENT,XXXXXXX,                 XXXXXXX,  KC_TAB,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                 OSM(MOD_LSFT),OSM(MOD_LCTL),_______,   MO(3),KC_SPC,OSM(MOD_RSFT)
                                       //`--------------------------'  `--------------------------'
@@ -62,9 +62,9 @@ KC_ESC,OSM(MOD_LCTL),OSM(MOD_LALT),OSM(MOD_LGUI),OSM(MOD_LSFT),KC_ENT,    KC_TAB
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,KC__VOLUP,KC_BRMU,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
+      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX,KC__VOLUP,KC_BRMU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD,RGB_SAD,RGB_VAD,KC__VOLDOWN,KC_BRMD,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX,
+      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX ,XXXXXXX,                      XXXXXXX,KC__VOLDOWN,KC_BRMD,XXXXXXX,XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                 OSM(MOD_LSFT),OSM(MOD_LCTL),_______,   _______,KC_SPC,OSM(MOD_RSFT)
                                       //`--------------------------'  `--------------------------'
@@ -72,22 +72,6 @@ KC_ESC,OSM(MOD_LCTL),OSM(MOD_LALT),OSM(MOD_LGUI),OSM(MOD_LSFT),KC_ENT,    KC_TAB
 };
 
 // clang-format on
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case OSM(MOD_LCTL):
-        case OSM(MOD_LALT):
-        case OSM(MOD_LGUI):
-        case OSM(MOD_LSFT):
-        case OSM(MOD_RCTL):
-        case OSM(MOD_RALT):
-        case OSM(MOD_RGUI):
-        case OSM(MOD_RSFT):
-            return 200;
-        default:
-            return TAPPING_TERM;
-    }
-}
-
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
