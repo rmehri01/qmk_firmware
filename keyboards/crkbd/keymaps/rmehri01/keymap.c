@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,    MO(TOG),  KC_SPC, KC_BSPC
+                                          _______, _______, _______,    MO(TOG),  KC_TAB, KC_BSPC
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -73,11 +73,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_GRV, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_ESC, KC_SLSH, KC_LPRN, KC_RPRN,  KC_EQL,  KC_GRV,                      KC_BSLS, OS_SHFT,  OS_CMD,  OS_ALT, OS_CTRL, XXXXXXX,
+       KC_ESC, KC_SLSH, KC_LPRN, KC_RPRN,  KC_EQL, KC_LBRC,                      KC_RBRC, OS_SHFT,  OS_CMD,  OS_ALT, OS_CTRL, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, KC_QUES, KC_LCBR, KC_RCBR, KC_PLUS, KC_TILD,                      KC_PIPE, KC_PLUS, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
+      KC_CAPS, KC_QUES, KC_LCBR, KC_RCBR, KC_PLUS, KC_TILD,                      XXXXXXX, KC_BSLS, KC_PIPE, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           KC_TAB, OS_CTRL, MO(TOG),    _______, _______, _______
+                                           KC_GRV, OS_CTRL, MO(TOG),    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   ),
 

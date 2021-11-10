@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define USE_MATRIX_I2C
+// #define USE_MATRIX_I2C
 
 /* Select hand configuration */
 
