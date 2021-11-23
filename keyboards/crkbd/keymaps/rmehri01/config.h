@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_FUNCTION
 
 // #define USE_MATRIX_I2C
+#define SPLIT_USB_DETECT
 
 /* Select hand configuration */
 
@@ -34,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL_PD2
 
 #define USB_POLLING_INTERVAL_MS 1
+#define ERROR_DISCONNECT_COUNT 20
+#undef DEBOUNCE
+#define DEBOUNCE 15
 
 #define TAPPING_FORCE_HOLD
 

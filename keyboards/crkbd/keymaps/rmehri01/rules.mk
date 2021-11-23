@@ -1,6 +1,7 @@
 SPLIT_KEYBOARD = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
+DEBOUNCE_TYPE = sym_eager_pk
 RGB_MATRIX_ENABLE = no
 RGBLIGHT_ENABLE = no
 AUDIO_ENABLE = no
@@ -14,4 +15,3 @@ CONSOLE_ENABLE = no
 
 SRC += oneshot.c
 SRC += swapper.c
-EXTRAFLAGS += -flto
