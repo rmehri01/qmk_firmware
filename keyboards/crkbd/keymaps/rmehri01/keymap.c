@@ -24,12 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)
+#define LA_GAM MO(GAM)
 
 enum layers {
     DEF,
     SYM,
     NAV,
     TOG,
+    GAM,
 };
 
 enum keycodes {
@@ -39,7 +41,10 @@ enum keycodes {
     OS_ALT,
     OS_CMD,
 
-    SW_WIN,  // Switch to next window         (cmd-tab)
+    SW_WIN, // Switch to next window         (cmd-tab)
+
+    GAMING_ON,
+    GAMING_OFF,
 };
 
 // clang-format off
@@ -87,9 +92,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                      XXXXXXX,KC__VOLUP,KC_BRMU, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX ,XXXXXXX,                      XXXXXXX,KC__VOLDOWN,KC_BRMD,XXXXXXX,XXXXXXX, XXXXXXX,
+      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX ,XXXXXXX,                      XXXXXXX,KC__VOLDOWN,KC_BRMD,XXXXXXX,XXXXXXX,GAMING_ON,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [GAM] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      OS_CTRL,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+       KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,  KC_SPC,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,GAMING_OFF,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                             KC_1,    KC_2,    KC_3,    _______,  KC_SPC, OS_SHFT
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -98,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
-        return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+        return OLED_ROTATION_180; // flips the display 180 degrees if offhand
     }
     return rotation;
 }
@@ -154,7 +171,9 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
     snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c", record->event.key.row, record->event.key.col, keycode, name);
 }
 
-void oled_render_keylog(void) { oled_write(keylog_str, false); }
+void oled_render_keylog(void) {
+    oled_write(keylog_str, false);
+}
 
 void render_bootmagic_status(bool status) {
     /* Show Ctrl-Gui Swap options */
@@ -192,7 +211,7 @@ bool oled_task_user(void) {
     }
     return false;
 }
-#endif  // OLED_ENABLE
+#endif // OLED_ENABLE
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -240,6 +259,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
     update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
     update_oneshot(&os_cmd_state, KC_LCMD, OS_CMD, keycode, record);
+
+    switch (keycode) {
+        case GAMING_ON:
+            if (record->event.pressed) {
+                layer_off(DEF);
+                layer_off(SYM);
+                layer_off(NAV);
+                layer_off(TOG);
+                layer_on(GAM);
+            }
+            return false;
+        case GAMING_OFF:
+            if (record->event.pressed) {
+                layer_off(GAM);
+            }
+            return false;
+    }
 
     return true;
 }
