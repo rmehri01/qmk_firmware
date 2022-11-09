@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-#include "oneshot.h"
-#include "swapper.h"
+#include "users/callum/oneshot.h"
+#include "users/callum/swapper.h"
 
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)

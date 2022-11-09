@@ -15,5 +15,5 @@ MIDI_ENABLE = no
 # BACKLIGHT_ENABLE = no
 CONSOLE_ENABLE = no
 
-SRC += oneshot.c
-SRC += swapper.c
+SRC += users/callum/oneshot.c
+SRC += users/callum/swapper.c
