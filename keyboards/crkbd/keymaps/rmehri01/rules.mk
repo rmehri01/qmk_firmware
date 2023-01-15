@@ -5,6 +5,7 @@ DEBOUNCE_TYPE = sym_defer_pk
 LTO_ENABLE = yes
 NKRO_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
+WPM_ENABLE = yes
 RGBLIGHT_ENABLE = no
 AUDIO_ENABLE = no
 MOUSEKEY_ENABLE = no
@@ -17,3 +18,4 @@ CONSOLE_ENABLE = no
 
 SRC += users/callum/oneshot.c
 SRC += users/callum/swapper.c
+SRC += oled-bongocat.c
