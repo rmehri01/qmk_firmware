@@ -19,3 +19,4 @@ CONSOLE_ENABLE = no
 SRC += users/callum/oneshot.c
 SRC += users/callum/swapper.c
 SRC += oled-bongocat.c
+SRC += oled-icons.c
