@@ -12,7 +12,6 @@ SLEEP_LED_ENABLE = no
 BLUETOOTH_ENABLE = no
 UNICODE_ENABLE = no
 MIDI_ENABLE = no
-# BACKLIGHT_ENABLE = no
 CONSOLE_ENABLE = no
 
 SRC += users/callum/oneshot.c
