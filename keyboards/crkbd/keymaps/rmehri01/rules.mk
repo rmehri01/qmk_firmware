@@ -14,7 +14,7 @@ UNICODE_ENABLE = no
 MIDI_ENABLE = no
 CONSOLE_ENABLE = no
 
-SRC += users/callum/oneshot.c
-SRC += users/callum/swapper.c
+SRC += oneshot.c
+SRC += swapper.c
 SRC += oled-bongocat.c
 SRC += oled-icons.c
