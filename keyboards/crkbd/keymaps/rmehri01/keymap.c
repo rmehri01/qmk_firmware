@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
-#include "oneshot.h"
 #include "swapper.h"
 
 #define LA_SYM MO(SYM)
@@ -35,13 +34,7 @@ enum layers {
 };
 
 enum keycodes {
-    // Custom oneshot mod implementation with no timers.
-    OS_SHFT = SAFE_RANGE,
-    OS_CTRL,
-    OS_ALT,
-    OS_CMD,
-
-    SW_WIN, // Switch to next window         (cmd-tab)
+    SW_WIN = SAFE_RANGE, // Switch to next window         (cmd-tab)
 
     GAMING_ON,
     GAMING_OFF,
@@ -66,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX,    KC_7,    KC_5,    KC_3,    KC_1,    KC_9,                         KC_8,    KC_0,    KC_2,    KC_4,    KC_6, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_ESC, OS_CTRL,  OS_ALT,  OS_CMD, OS_SHFT, XXXXXXX,                      XXXXXXX,  SW_WIN,   KC_UP,  KC_ENT, XXXXXXX, XXXXXXX,
+       KC_ESC, OSM(MOD_LCTL),  OSM(MOD_LALT),  OSM(MOD_LGUI), OSM(MOD_LSFT), XXXXXXX,                      XXXXXXX,  SW_WIN,   KC_UP,  KC_ENT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -78,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_ESC, KC_SLSH, KC_LPRN, KC_RPRN,  KC_EQL, KC_LBRC,                      KC_RBRC, OS_SHFT,  OS_CMD,  OS_ALT, OS_CTRL, XXXXXXX,
+       KC_ESC, KC_SLSH, KC_LPRN, KC_RPRN,  KC_EQL, KC_LBRC,                      KC_RBRC, OSM(MOD_RSFT),  OSM(MOD_RGUI),  OSM(MOD_RALT), OSM(MOD_RCTL), XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, KC_QUES, KC_LCBR, KC_RCBR, KC_PLUS, KC_TILD,                      XXXXXXX, KC_BSLS, KC_PIPE, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -111,46 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-bool is_oneshot_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-        case MO(SYM):
-        case MO(NAV):
-            return true;
-        default:
-            return false;
-    }
-}
-
-bool is_oneshot_ignored_key(uint16_t keycode) {
-    switch (keycode) {
-        case MO(SYM):
-        case MO(NAV):
-        case KC_LSFT:
-        case OS_SHFT:
-        case OS_CTRL:
-        case OS_ALT:
-        case OS_CMD:
-            return true;
-        default:
-            return false;
-    }
-}
-
 bool sw_win_active  = false;
 bool sw_lang_active = false;
 
-oneshot_state os_shft_state = os_up_unqueued;
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state  = os_up_unqueued;
-oneshot_state os_cmd_state  = os_up_unqueued;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, keycode, record);
-
-    update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
-    update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
-    update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-    update_oneshot(&os_cmd_state, KC_LCMD, OS_CMD, keycode, record);
 
     switch (keycode) {
         case GAMING_ON:
